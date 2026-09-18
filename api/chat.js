@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         // A strong free-tier model. Check console.groq.com/docs/models for
         // the current lineup before deploying — model names occasionally change.
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         max_tokens: 500,
         messages: groqMessages,
       }),
