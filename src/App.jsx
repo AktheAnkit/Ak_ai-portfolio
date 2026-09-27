@@ -52,6 +52,26 @@ const PROFILE = {
     ],
   },
 ],
+  certifications: [
+    {
+      name: 'Software Engineering Job Simulation',
+      issuer: 'Accenture (via Forage)',
+      date: '2025',
+      url: '#', // replace with your real verification link
+    },
+    {
+      name: 'Full-Stack Web Development',
+      issuer: 'Coursera',
+      date: '2024',
+      url: '#',
+    },
+    {
+      name: 'Data Structures & Algorithms',
+      issuer: 'LinkedIn Learning',
+      date: '2024',
+      url: '#',
+    },
+  ],
   skills: {
   Languages: ['Python', 'JavaScript', 'SQL', 'C++'],
   'Web Technologies': ['HTML5', 'CSS3', 'React', 'Tailwind CSS'],
@@ -59,7 +79,7 @@ const PROFILE = {
   Databases: ['MySQL'],
   'Tools & Platforms': ['Git', 'GitHub', 'Docker', 'Postman', 'Linux'],
   'Core Areas': ['AI & Machine Learning', 'Cybersecurity', 'Full-Stack Development', 'REST APIs'],
-},
+  },
   projects: [
 
   {
@@ -175,7 +195,7 @@ const PROFILE = {
 ],
 };
 
-const SECTION_ORDER = ['top', 'about', 'experience', 'skills', 'projects', 'ai', 'contact'];
+const SECTION_ORDER = ['top', 'about', 'experience', 'skills', 'certifications', 'projects', 'ai', 'contact'];
 
 const SUGGESTED_QUESTIONS = [
   'What are his strongest technical skills?',
@@ -808,6 +828,7 @@ export default function App() {
   const navItems = [
     ['about', 'About'],
     ['experience', 'Experience'],
+    ['certifications', 'Certifications'],
     ['skills', 'Skills'],
     ['projects', 'Projects'],
     ['ai', 'Ask AI'],
