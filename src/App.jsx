@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Github, Linkedin, Mail, Send, Menu, X, GraduationCap, ExternalLink, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, Mail, Send, Menu, X, GraduationCap, ExternalLink, Sun, Moon, Sparkles } from 'lucide-react';
 
 // ---------------------------------------------------------------------------
 // EDIT THIS BLOCK: replace every field below with your own real details.
@@ -919,6 +919,14 @@ export default function App() {
         }
         .nav-link:hover { color: var(--accent); }
 
+        .nav-link-ai {
+          background: var(--accent-soft); border: none; border-radius: 9999px;
+          padding: 0.35rem 0.9rem; font: inherit; font-weight: 600; font-size: 0.85rem;
+          color: var(--accent); cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;
+          transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .nav-link-ai:hover { background: var(--accent); color: var(--surface); }
+
         a.link-quiet, button.link-quiet {
           display: inline-flex; align-items: center; gap: 0.375rem;
           color: var(--ink); text-decoration: none; border: none;
@@ -1214,7 +1222,12 @@ export default function App() {
           <div className="flex items-center gap-4">
             <nav className="hidden sm:flex gap-6 font-body text-sm">
               {navItems.map(([id, label]) => (
-                <button key={id} onClick={() => handleNavClick(id)} className="nav-link">
+                <button
+                  key={id}
+                  onClick={() => handleNavClick(id)}
+                  className={id === 'ai' ? 'nav-link-ai' : 'nav-link'}
+                >
+                  {id === 'ai' && <Sparkles size={13} />}
                   {label}
                 </button>
               ))}
@@ -1261,7 +1274,7 @@ export default function App() {
                 key={id}
                 onClick={() => handleNavClick(id)}
                 className="nav-link"
-                style={{ textAlign: 'left', padding: '0.5rem 0' }}
+                style={id === 'ai' ? { marginTop: '0.35rem', marginBottom: '0.15rem', alignSelf: 'flex-start' } : { textAlign: 'left', padding: '0.5rem 0' }}
               >
                 {label}
               </button>
