@@ -222,6 +222,9 @@ ${p.experience
     .map((exp) => `- ${exp.role} at ${exp.company} (${exp.period}): ${exp.points.join(' ')}`)
     .join('\n')}
 
+Certifications:
+${p.certifications.map((c) => `- ${c.name} (${c.issuer}, ${c.date})`).join('\n')}
+
 Skills:
 ${Object.entries(p.skills)
     .map(([category, items]) => `- ${category}: ${items.join(', ')}`)
@@ -564,6 +567,7 @@ export default function App() {
 
   const [aboutRef, aboutVisible] = useReveal();
   const [experienceRef, experienceVisible] = useReveal();
+  const [certificationsRef, certificationsVisible] = useReveal();
   const [skillsRef, skillsVisible] = useReveal();
   const [projectsRef, projectsVisible] = useReveal();
   const [aiRef, aiVisible] = useReveal();
@@ -571,6 +575,7 @@ export default function App() {
 
   const aboutHeading = useScramble('About', aboutVisible);
   const experienceHeading = useScramble('Experience', experienceVisible);
+  const certificationsHeading = useScramble('Certifications', certificationsVisible);
   const skillsHeading = useScramble('Skills', skillsVisible);
   const projectsHeading = useScramble('Projects', projectsVisible);
   const aiHeading = useScramble('Ask about me', aiVisible);
@@ -711,6 +716,7 @@ export default function App() {
   const COMMANDS = [
     { id: 'about', label: 'Go to About', run: () => handleNavClick('about') },
     { id: 'experience', label: 'Go to Experience', run: () => handleNavClick('experience') },
+    { id: 'certifications', label: 'Go to Certifications', run: () => handleNavClick('certifications') },
     { id: 'skills', label: 'Go to Skills', run: () => handleNavClick('skills') },
     { id: 'projects', label: 'Go to Projects', run: () => handleNavClick('projects') },
     { id: 'ai', label: 'Ask the AI assistant', run: () => handleNavClick('ai') },
@@ -926,6 +932,17 @@ export default function App() {
           transition: background-color 0.15s ease, color 0.15s ease;
         }
         .nav-link-ai:hover { background: var(--accent); color: var(--surface); }
+
+        @media (max-width: 640px) {
+          .nav-link-ai {
+            width: fit-content !important;
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.3rem !important;
+          }
+        }
 
         a.link-quiet, button.link-quiet {
           display: inline-flex; align-items: center; gap: 0.375rem;
@@ -1273,9 +1290,10 @@ export default function App() {
               <button
                 key={id}
                 onClick={() => handleNavClick(id)}
-                className="nav-link"
+                className={id === 'ai' ? 'nav-link-ai' : 'nav-link'}
                 style={id === 'ai' ? { marginTop: '0.35rem', marginBottom: '0.15rem', alignSelf: 'flex-start' } : { textAlign: 'left', padding: '0.5rem 0' }}
               >
+                {id === 'ai' && <Sparkles size={10} />}
                 {label}
               </button>
             ))}
@@ -1427,6 +1445,55 @@ export default function App() {
                 </ul>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* CERTIFICATIONS */}
+        <section
+          id="certifications"
+          ref={certificationsRef}
+          className={`py-12 border-t border-rule reveal ${certificationsVisible ? 'reveal-visible' : ''}`}
+        >
+          <h2 className="font-display font-semibold text-2xl mb-6">
+            {certificationsHeading}
+          </h2>
+
+          <div className="flex flex-col gap-3">
+            {PROFILE.certifications.map((certification) => {
+              const hasLink =
+                certification.url &&
+                certification.url !== '#' &&
+                certification.url.trim() !== '';
+
+              return hasLink ? (
+                <a
+                  key={certification.name}
+                  href={certification.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-quiet text-sm"
+                  style={{ width: 'fit-content' }}
+                >
+                  <ExternalLink size={14} />
+                  {certification.name} — {certification.issuer} ({certification.date})
+                </a>
+              ) : (
+                <div
+                  key={certification.name}
+                  className="text-sm"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.375rem',
+                    width: 'fit-content',
+                    color: 'var(--ink)',
+                  }}
+                >
+                  <ExternalLink size={14} style={{ color: 'var(--muted)' }} />
+                  {certification.name} — {certification.issuer} ({certification.date})
+                </div>
+              );
+            })}
           </div>
         </section>
 
