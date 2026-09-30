@@ -709,9 +709,21 @@ export default function App() {
   }, []);
 
   function handleNavClick(id) {
-    setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  setMenuOpen(false);
+
+  const element = document.getElementById(id);
+
+  if (element) {
+    const navbarOffset = 60;
+    const elementPosition =
+      element.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: Math.max(0, elementPosition - navbarOffset),
+      behavior: 'smooth',
+    });
   }
+}
 
   const COMMANDS = [
     { id: 'about', label: 'Go to About', run: () => handleNavClick('about') },
