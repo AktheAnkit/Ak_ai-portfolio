@@ -712,9 +712,12 @@ export default function App() {
   setMenuOpen(false);
 
   const element = document.getElementById(id);
+  const navbar = document.querySelector('header');
 
   if (element) {
-    const navbarOffset = 60;
+    const navbarHeight = navbar?.getBoundingClientRect().height || 60;
+    const navbarOffset = navbarHeight + 16;
+
     const elementPosition =
       element.getBoundingClientRect().top + window.scrollY;
 
